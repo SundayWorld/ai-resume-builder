@@ -3,14 +3,14 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 
-const resumeRoutes = require("./routes/resumeRoutes");
-const interviewRoutes = require("./routes/interviewRoutes");
-const feedbackRoutes = require("./routes/feedbackRoutes");
+const resumeRoutes = require("./resumeRoutes");
+const interviewRoutes = require("./interviewRoutes");
+const feedbackRoutes = require("./feedbackRoutes");
 
 const app = express();
 
 // Middleware
-app.use(cors({ origin: process.env.FRONTEND_URL || "*" })); // Use environment variable for allowed origins
+app.use(cors({ origin: process.env.FRONTEND_URL || "*" }));
 app.use(morgan("dev"));
 app.use(express.json());
 
@@ -30,8 +30,4 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Internal Server Error" });
 });
 
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+module.exports = app; // 🚀 Required for Vercel Deployment
